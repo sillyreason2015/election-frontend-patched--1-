@@ -2,7 +2,7 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { getToken, setToken, clearToken } from '@/lib/auth';
 import { api } from '@/lib/api';
-import type { User } from '@/types';
+import type { User } from '@/types/index';
 
 interface Ctx {
   user: User | null;

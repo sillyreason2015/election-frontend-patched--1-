@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
-import { API } from "@/lib/api";
+import { api } from "@/lib/api";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirm) {
       setError("Passwords do not match");
@@ -21,10 +21,10 @@ export default function ResetPasswordPage() {
     }
     try {
       setLoading(true);
-      await API.post("/password/reset", { token, password });
+      await api.resetPassword(token ?? "",password);
       router.push("/login");
-    } catch (err) {
-      setError(err.response?.data?.message || "Reset failed");
+    } catch (error) {
+      setError("Reset failed");
     } finally {
       setLoading(false);
     }

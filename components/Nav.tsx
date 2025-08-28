@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/hooks/useAuth';
 
 export function Nav() {
-  const { user, logout } = useAuth();
+  const { user, logout, } = useAuth();
   return (
     <nav className="container py-4 flex justify-between items-center">
       <Link href="/" className="font-bold">EMS</Link>

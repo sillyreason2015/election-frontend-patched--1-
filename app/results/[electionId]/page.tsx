@@ -25,7 +25,7 @@ function ResultsInner() {
       setTitle(res?.election?.title ?? 'Election Results');
       const rows = (res?.totals || []).map((t:any)=> ({ name: t.name || t.candidateName || t.candidateId, votes: Number(t.votes)||0 }));
       setData(rows);
-      setTotal(rows.reduce((a,b)=>a+b.votes,0));
+      setTotal(rows.reduce((a: any,b: { votes: any; })=>a+b.votes,0));
     })();
   }, [electionId]);
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { Protected } from '@/components/Protected';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/hooks/useAuth';
 import { api } from '@/lib/api';
 
 export default function DashboardPage() {
@@ -142,9 +142,9 @@ function ElectionsAdmin() {
         <h2 className="text-lg font-semibold mb-4">Create Election</h2>
         <form onSubmit={create} className="space-y-3">
           <input className="input" placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} required />
-          <input className="input" type="datetime-local" value={startDate} onChange={e=>setStartDate(e.target.value)} required />
-          <input className="input" type="datetime-local" value={endDate} onChange={e=>setEndDate(e.target.value)} required />
-          <button className="btn-primary">Create</button>
+          <input className="input" placeholder="Start Date" type="datetime-local" value={startDate} onChange={e=>setStartDate(e.target.value)} required />
+          <input className="input"  placeholder="End Date" type="datetime-local" value={endDate} onChange={e=>setEndDate(e.target.value)} required />
+          <button type='submit' className="btn-primary">Create</button>
         </form>
       </div>
       <div className="card">

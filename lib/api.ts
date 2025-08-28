@@ -1,7 +1,7 @@
 'use client';
 import axios from 'axios';
 import { getToken } from '@/lib/auth';
-import type { User } from '@/types';
+import type { User } from '@/types/index';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
 
@@ -23,7 +23,7 @@ function handleErr(err: any): never {
 
 export const api = {
   async register(payload: { name: string; email: string; password: string }) {
-    const { data } = await instance.post('/api/auth/register', payload).catch(handleErr);
+    const { data } = await instance.post('/api/user/register', payload).catch(handleErr);
     return data;
   },
   async login(payload: { email: string; password: string }): Promise<{ token: string; user: User }> {
@@ -31,31 +31,31 @@ export const api = {
     return data;
   },
   async me(): Promise<User> {
-    const { data } = await instance.get('/api/auth/me').catch(handleErr);
+    const { data } = await instance.get('/api/user/').catch(handleErr);
     return data;
   },
   async getUsers() {
-    const { data } = await instance.get('/api/users').catch(handleErr);
+    const { data } = await instance.get('/api/user/all').catch(handleErr);
     return data;
   },
   async getCandidates() {
-    const { data } = await instance.get('/api/candidates').catch(handleErr);
+    const { data } = await instance.get('/api/candidate/view').catch(handleErr);
     return data;
   },
   async createCandidate(payload: { name: string; party: string; photoUrl?: string }) {
-    const { data } = await instance.post('/api/candidates', payload).catch(handleErr);
+    const { data } = await instance.post('/api/candidate/add', payload).catch(handleErr);
     return data;
   },
   async getElections() {
-    const { data } = await instance.get('/api/elections').catch(handleErr);
+    const { data } = await instance.get('/api/election/view').catch(handleErr);
     return data;
   },
   async createElection(payload: { title: string; startDate: string; endDate: string }) {
-    const { data } = await instance.post('/api/elections', payload).catch(handleErr);
+    const { data } = await instance.post('/api/election/create', payload).catch(handleErr);
     return data;
   },
   async castVote(payload: { electionId: string; candidateId: string }) {
-    const { data } = await instance.post('/api/votes', payload).catch(handleErr);
+    const { data } = await instance.post('/api/vote/cast', payload).catch(handleErr);
     return data;
   },
   async getResults(electionId: string) {
@@ -72,6 +72,10 @@ export const api = {
   },
   async verifyOtp(payload: { email: string; otp: string }) {
     const { data } = await instance.post('/api/otp/verify', payload).catch(handleErr);
+    return data;
+  },
+  async resendOtp(payload: { email: string; otp: string }) {
+    const { data } = await instance.post('/api/otp/resend', payload).catch(handleErr);
     return data;
   },
 };
